@@ -16,12 +16,17 @@ export const createOrder = async (req, res) => {
     // user id is required
     try {
         console.log("before create");
-        const { user, weight, category, modeOfTransport, status } = req.body;
+        const { user, weight, category, modeOfTransport, status="pending" } = req.body;
         // generate trackingNumber using some uuid?
         const trackingNumber = await generateShortId()
+       if(!user || !weight || !category || !modeOfTransport){
+            console.log("missing fields");{
+           
+        }
         const order = await Order.create({ user, trackingNumber, weight, category, modeOfTransport, status });
-        console.log("after create");
+       
         res.status(201).json(order);
+    }
     }catch(error){
         res.status(500).json({ message: error.message });
     }
