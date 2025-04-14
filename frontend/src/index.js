@@ -12,12 +12,14 @@ import OrdersTable from './OrdersTable';
 import Customerlogin from './customerLogin';
 import CustomerLanding from './zcustomerlanding';
 import ShipNow from './zshipnow';
+import Register from './Register/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/register" element={<Register />} /> 
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/employeetable" element={<EmployeeTable />} />
       <Route path="/admindashboard" element={<AdminDashboard />} />
