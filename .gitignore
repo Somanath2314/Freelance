@@ -1,10 +1,17 @@
-/node_modules
-/dist
-/build
-/public
-/uploads
-/logs
-/config
+# Dependency folders
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+build/
+
+# Public or temporary upload folders
+public/
+uploads/
+logs/
+
+# Environment variable files
 .env
 .env.local
 .env.development.local
@@ -12,3 +19,9 @@
 .env.production.local
 .env.development
 .env.test
+
+# Mac OS metadata files
+.DS_Store
+
+# Optional: ignore sensitive config (only if needed)
+config/

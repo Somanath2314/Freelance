@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogIn, UserPlus, GraduationCap, BookOpen } from 'lucide-react';
 import axios from 'axios';
 
-const baseurl = "";
+const baseurl = "http://localhost:8080/api/v1/auth";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -18,7 +18,7 @@ function Register() {
 
   const getUserProfile = async () => {
     try {
-      const response = await axios.get(`${baseurl}/users/getProfile`, {
+      const response = await axios.get(`${baseurl}/getProfile`, {
         withCredentials: true,
         headers: {
           "Content-Type": 'application/json'
@@ -63,7 +63,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        `${baseurl}/users/register`,
+        `${baseurl}/register`,
         userData,
         {
           withCredentials: true,

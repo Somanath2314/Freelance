@@ -17,4 +17,7 @@ router.route("/logout")
         res.clearCookie("accessToken");
         return res.status(200).json({ message: "Logged out successfully" });
     }); 
+
+router.get("/getProfile", getUserProfile);
+router.get("/healthcheck", healthcheck);
 export default router
