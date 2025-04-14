@@ -28,17 +28,9 @@ app.use(express.static("public"));
 
 // Routes
 import healthcheckRouter from "./routes/healthcheck.routes.js"
-import authRoutes from "./routes/auth.routes.js";
+import employeeroutes from "./routes/employee.routes.js"
 
-app.use("/api/v1/healthcheck", healthcheckRouter);
-app.use("/api/v1/auth", authRoutes);
-
-// Catch-all for undefined routes
-app.use("*", (req, res) => {
-    res.status(404).json({
-        status: "error",
-        message: `Route ${req.originalUrl} not found`
-    });
-});
+app.use("/api/v1/healthcheck",healthcheckRouter)
+app.use("/api/v1/employee",employeeroutes)
 
 export {app}
