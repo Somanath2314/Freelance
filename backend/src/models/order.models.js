@@ -1,10 +1,19 @@
 import mongoose,{Schema} from "mongoose";
 
 
-const oderSchema = new Schema({
+const orderSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    trackingNumber: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    weight: {
+        type: Number,
         required: true
     },
     modeOfTransport: {
@@ -21,4 +30,4 @@ const oderSchema = new Schema({
     }, 
 })
 
-export const Order = mongoose.model("Order", oderSchema);
+export const Order = mongoose.model("Order", orderSchema);
