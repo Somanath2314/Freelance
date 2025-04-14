@@ -6,6 +6,10 @@ dotenv.config({
 })
 const PORT=process.env.PORT
 
+import authRoutes from "./routes/auth.routes.js";
+
+
+
 connectionDB()
 .then(()=>{
     app.listen(PORT,()=>

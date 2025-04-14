@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { LogIn, UserPlus, GraduationCap, BookOpen } from 'lucide-react';
 import axios from 'axios';
 
-const baseurl = ""
+const baseurl = "";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Teacher");
+  const [role, setRole] = useState("user");
+  const [adminCode, setAdminCode] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -23,14 +24,14 @@ function Register() {
           "Content-Type": 'application/json'
         },
       });
-      
+
       console.log("Profile data:", response.data);
       const userRole = response.data.data.user.role;
-      
+
       if (userRole === "admin") {
-        navigate("/hm");
-      } else if (userRole === "teacher") {
-        navigate("/teacher");
+        navigate("/admindashboard");
+      } else if (userRole === "user") {
+        navigate("/customer-dashboard");
       }
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -45,7 +46,13 @@ function Register() {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
-    
+
+    if (role === "admin" && adminCode !== "123") {
+      setMessage({ type: "error", text: "Invalid admin code" });
+      setLoading(false);
+      return;
+    }
+
     const userData = {
       name: username,
       email,
@@ -65,10 +72,10 @@ function Register() {
           },
         }
       );
-      
+
       if (response.status === 200 || response.status === 201) {
         setMessage({
-          type: "success", 
+          type: "success",
           text: "Registration successful! Welcome to Edu-StreamLiners. Redirecting to your dashboard..."
         });
         console.log("Registration successful:", response.data);
@@ -101,7 +108,7 @@ function Register() {
         <BookOpen className="w-24 h-24" />
       </div>
 
-      {/* Centered Form Container with extra margin */}
+      {/* Centered Form Container */}
       <div className="flex items-center justify-center min-h-screen px-4 my-12">
         <div className="relative z-10 w-full max-w-md p-8 bg-gray-800 rounded-3xl shadow-2xl">
           <div className="text-center mb-8">
@@ -171,14 +178,30 @@ function Register() {
 
             <div className="flex items-center space-x-3">
               <input
-                id="role"
+                id="isAdmin"
                 type="checkbox"
-                checked={role === "Headmaster"}
-                onChange={(e) => setRole(e.target.checked ? "Headmaster" : "Teacher")}
+                checked={role === "admin"}
+                onChange={(e) => setRole(e.target.checked ? "admin" : "user")}
                 className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-gray-600 rounded"
               />
-              <label htmlFor="role" className="text-sm font-medium text-gray-200">Register as Headmaster</label>
+              <label htmlFor="isAdmin" className="text-sm font-medium text-gray-200">
+                Register as Admin
+              </label>
             </div>
+
+            {role === "admin" && (
+              <div>
+                <label htmlFor="adminCode" className="block text-sm font-medium text-gray-200">Admin Code</label>
+                <input
+                  id="adminCode"
+                  type="text"
+                  value={adminCode}
+                  onChange={(e) => setAdminCode(e.target.value)}
+                  required
+                  className="mt-1 block w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                />
+              </div>
+            )}
 
             <button
               type="submit"
