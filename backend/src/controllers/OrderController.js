@@ -1,6 +1,7 @@
 
 import { Order } from "../models/order.models.js";
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 
 async function generateShortId() {
     const uuid = uuidv4(); // generates UUID like '8c3a7604-f03c-4d08-96b9-bc6c5ff5aecc'
@@ -13,21 +14,39 @@ async function generateShortId() {
     return base64Id;
 }
 export const createOrder = async (req, res) => {
+    console.log("create order"); 
     // user id is required
     try {
         console.log("before create");
-        const { user, weight, category, modeOfTransport, status="pending" } = req.body;
+        const token = req.cookies.accessToken;
+        console.log(token);
+        
+        if (!token) {
+            console.log("no token"); 
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        console.log("after token");
+        // verify token 
+        console.log("veryfiying token");
+        
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const user = decoded._id;
+        console.log("user id: ", user);
+        const {weight, category, modeOfTransport, status="pending" } = req.body;
         // generate trackingNumber using some uuid?
         const trackingNumber = await generateShortId()
-       if(!user || !weight || !category || !modeOfTransport){
-            console.log("missing fields");{
-           
-        }
+        console.log("tracking number: ", trackingNumber);
+        console.log(user, weight, category, modeOfTransport, status);
+         
+        console.log("before create order");
+        
         const order = await Order.create({ user, trackingNumber, weight, category, modeOfTransport, status });
-       
+        console.log("order created successfully");
+        console.log(order);
+        
         res.status(201).json(order);
     }
-    }catch(error){
+    catch(error){
         res.status(500).json({ message: error.message });
     }
 }
