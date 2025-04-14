@@ -4,6 +4,7 @@ import { Employee } from "../models/employee.models.js";
 // Get all employees
 const getAllEmployees = async (req, res) => {
     try {
+        
         const employees = await Employee.find({});
         if (!employees || employees.length === 0) {
             return res.status(404).json({ message: "No employees found" });
