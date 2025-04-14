@@ -1,117 +1,331 @@
-/* General Reset */
-html, body {
+/* zshipnow.css - Enhanced with animations and improved styling */
+
+/* Base styles */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow: hidden; /* Prevents scrolling */
-}
-
-/* Container for the entire shipnow section */
-.shipnow-container {
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+  }
+  
+  /* Container for the entire component */
+  .shipnow-container {
     position: relative;
-    width: 100%;
-    height: 100vh; /* Full screen */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-}
-
-/* Background Video */
-.background-video {
+  }
+  
+  /* Background video styling */
+  .background-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the video covers the entire screen */
-    z-index: -1; /* Keeps it behind the form */
-}
-
-/* Form container */
-.form-overlay {
-    background: rgba(0, 0, 0, 0.6); /* Dark overlay for the form */
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    z-index: 1; /* Ensures form stays above background video */
-}
-
-/* Heading */
-.form-overlay h1 {
-    color: #ffffff;
-    margin-bottom: 20px;
-    font-size: 28px;
-}
-
-/* Form fields */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Input fields */
-.input-field {
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(40%);
+  }
+  
+  /* Main form container */
+  .form-container {
     width: 100%;
-    padding: 14px 16px;
-    margin: 12px 0;
-    border: 2px solid #ffc400;
-    border-radius: 10px;
-    font-size: 18px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+    max-width: 500px;
+    padding: 20px;
+    z-index: 2;
+    perspective: 1000px;
+  }
+  
+  /* Card that contains the form */
+  .form-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    animation: cardEnter 0.8s ease forwards;
+  }
+  
+  @keyframes cardEnter {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) rotateX(5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+  }
+  
+  /* Form header */
+  .form-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .form-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-top: 8px;
+  }
+  
+  .form-icon {
+    color: #3b82f6;
+    margin-bottom: 12px;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #4b5563;
+  }
+  
+  .form-group label svg {
+    margin-right: 8px;
+    color: #3b82f6;
+  }
+  
+  /* Input field styling */
+  .input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
     transition: all 0.3s ease;
-}
-
-/* Input focus */
-.input-field:focus {
+  }
+  
+  .input-field:focus {
     outline: none;
-    border-color: #00e6b8;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 15px #00ffcc;
-}
-
-/* Submit Button */
-.submit-button {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Dropdown styling */
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper::after {
+    content: "▼";
+    font-size: 12px;
+    color: #6b7280;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  .dropdown-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dropdown-field:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Error styling */
+  .input-field.error,
+  .dropdown-field.error {
+    border-color: #ef4444;
+  }
+  
+  .error-message {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Submit button styling */
+  .submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 14px;
-    margin-top: 20px;
-    background: linear-gradient(135deg, #2b0000, #f80000);
+    background-color: #3b82f6;
+    color: white;
     border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    color: #0d0d0d;
-    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.297);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-/* Button Hover */
-.submit-button:hover {
-    background: linear-gradient(135deg, #ff0000, #fbff00);
-    transform: scale(1.08);
-    box-shadow: 0 0 25px #ff4747, 0 0 30px #ebf9f7;
-}
-
-/* Animations */
-@keyframes fadeInBackground {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeInForm {
-    0% { opacity: 0; transform: translateY(-50px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-    0% { box-shadow: 0 0 20px rgba(0, 27, 62, 0.5); }
-    100% { box-shadow: 0 0 35px rgba(104, 1, 1, 0.463); }
-}
+    transition: all 0.3s ease;
+    margin-top: 16px;
+  }
+  
+  .submit-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  .submit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Disabled button styling */
+  .submit-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Submitting state */
+  .submit-button.submitting {
+    background-color: #4b5563;
+  }
+  
+  /* Spinner animation */
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Status messages */
+  .status-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .status-message.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  
+  .status-message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  .status-message svg {
+    margin-right: 6px;
+  }
+  
+  /* Input field focus animations */
+  .input-field:focus,
+  .dropdown-field:focus {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 5px rgba(59, 130, 246, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .form-card {
+      padding: 24px;
+    }
+    
+    .form-header h1 {
+      font-size: 24px;
+    }
+    
+    .input-field,
+    .dropdown-field,
+    .submit-button {
+      padding: 10px 14px;
+    }
+  }
+  
+  /* Entrance animations for form elements */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .form-group {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+  }
+  
+  .form-group:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  
+  .form-group:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  
+  .form-group:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  .submit-button {
+    animation: fadeInUp 0.5s 0.5s ease forwards;
+    opacity: 0;
+  }
