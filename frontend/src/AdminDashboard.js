@@ -73,7 +73,7 @@ const AdminDashboard = () => {
                             <div className="card">
                                 <h2>Update Status</h2>
                                 <p>{pendingStatusCount} customers</p>
-                                <button onClick={() => navigate('/CustomerDetailsTable')}>
+                                <button onClick={() => navigate('/customerdetails')}>
                                     Go to Update Status
                                 </button>
                             </div>

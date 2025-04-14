@@ -1,136 +1,314 @@
-/* Ensure no scrolling and set the full height of the page */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden; /* Prevent scrolling */
-}
+/* zcustomerlanding.css */
 
-/* Container for the entire landing page */
 .landing-container {
     position: relative;
-    height: 100vh;  /* Full viewport height */
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5); /* Slight dark overlay for text readability */
     color: white;
-    text-align: center;
+    padding: 2rem;
+    overflow-x: hidden;
 }
 
-/* Background Video */
 .background-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure video covers the entire screen */
-    z-index: -1; /* Send the video behind other elements */
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.4);
 }
 
-/* Heading */
-h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Subtle shadow for readability */
-}
-
-/* Input Field */
-.tracking-input {
-    width: 80%;
-    max-width: 400px;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    border: 2px solid #fff;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px); /* Adding slight blur to input background */
-}
-
-/* Cards Container */
-.card-container {
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    z-index: 1;
     display: flex;
-    justify-content: center;
-    gap: 20px; /* Space between cards */
-    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Action Card */
-.action-card {
-    padding: 25px;
-    width: 200px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.2);
+.landing-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(8px); /* Blur effect for a smooth look */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Action Card Hover */
-.action-card:hover {
-    transform: scale(1.05); /* Subtle zoom-in on hover */
-    background-color: rgba(255, 255, 255, 0.4);
+.tracking-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Action Card Title */
-.action-card h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 10px;
+.tracking-input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
-/* Action Card Text */
-.action-card p {
+.tracking-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
     font-size: 1rem;
-    font-weight: 400;
-    color: #dcdcdc; /* Slightly lighter text color */
-}
-
-/* Add smooth transition for all card hover effects */
-.action-card, .tracking-input {
+    outline: none;
     transition: all 0.3s ease;
 }
 
-/* Optional: Make text glow for extra impact */
-@keyframes glow {
-    0% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #faffa0, 0 0 40px #ffd000, 0 0 50px #ff5900, 0 0 75px #ff0000;
-    }
-    50% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #faffa0, 0 0 40px #ffd000, 0 0 50px #ff5900, 0 0 75px #ff0000;
-    }
-    100% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #faffa0, 0 0 40px #ffd000, 0 0 50px #ff5900, 0 0 75px #ff0000;
+.tracking-input:focus {
+    border-color: #5e72e4;
+    box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.25);
+}
+
+.tracking-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.track-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    border: none;
+    background: linear-gradient(135deg, #5e72e4, #825ee4);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.track-button:hover {
+    background: linear-gradient(135deg, #4a5bd4, #7048d4);
+}
+
+.tracking-result {
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr;
     }
 }
 
-h1 {
-    animation: glow 1.5s ease-in-out infinite;
+.action-card {
+    background: rgba(16, 18, 27, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Optional: Add fade-in effect on page load */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.landing-container {
-    animation: fadeIn 1s ease-out;
+.card-icon {
+    margin-right: 0.75rem;
+    color: #5e72e4;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.card-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+.card-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #5e72e4, #825ee4);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-button:hover {
+    background: linear-gradient(135deg, #4a5bd4, #7048d4);
+    transform: translateY(-2px);
+}
+
+.ship-now-card {
+    cursor: pointer;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.orders-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.orders-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.orders-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.orders-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.order-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.tracking-number .label {
+    color: rgba(255, 255, 255, 0.6);
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.tracking-number .value {
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.order-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.order-date {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Status specific styles */
+.status-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.status-pending {
+    color: #f5b300;
+}
+
+.status-pending {
+    background-color: rgba(245, 179, 0, 0.1);
+    color: #f5b300;
+}
+
+.status-transit {
+    background-color: rgba(94, 114, 228, 0.1);
+    color: #5e72e4;
+}
+
+.status-processing {
+    background-color: rgba(130, 94, 228, 0.1);
+    color: #825ee4;
+}
+
+.status-delivered {
+    background-color: rgba(45, 206, 137, 0.1);
+    color: #2dce89;
+}
+
+/* Loading, error, and empty states */
+.loading-spinner, .error-message, .no-orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.spinner {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #5e72e4;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message p {
+    color: #f5365c;
+}
+
+.no-orders p {
+    margin-bottom: 1.5rem;
 }

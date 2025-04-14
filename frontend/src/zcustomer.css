@@ -1,119 +1,202 @@
-/* Background video */
-.video-background {
-    position: fixed;
+zcustomer.css
+
+.login-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .video-background {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: -1;
-}
-
-/* Container */
-.login-container {
-    min-height: 100vh;
+    filter: brightness(0.4);
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(16, 18, 27, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: white;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+  }
+  
+  .login-form h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .login-form.success {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(45, 206, 137, 0.5);
+  }
+  
+  .login-form.error {
+    border: 1px solid rgba(245, 54, 92, 0.5);
+  }
+  
+  .login-form.loading {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  
+  .message {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .message.success {
+    background-color: rgba(45, 206, 137, 0.2);
+    color: #2dce89;
+    border: 1px solid rgba(45, 206, 137, 0.3);
+  }
+  
+  .message.error {
+    background-color: rgba(245, 54, 92, 0.2);
+    color: #f5365c;
+    border: 1px solid rgba(245, 54, 92, 0.3);
+  }
+  
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #5e72e4;
+    box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.25);
+  }
+  
+  .input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .input-group input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
-}
-
-/* Login Form */
-.login-form {
-    background: rgba(0, 0, 0, 0.462);
-    padding: 50px 80px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(61, 59, 59, 0.6), 0 0 40px rgba(0, 255, 255, 0.4);
-    backdrop-filter: blur(15px);
-    color: #ffffff;
     width: 100%;
-    max-width: 400px;
-    animation: fadeIn 1s ease-in-out;
-    text-align: center; /* added to center heading and button nicely */
-}
-
-/* Animation */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(-30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Heading */
-.login-form h2 {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 32px;
-    font-weight: bold;
-    color: #ce6a00;
-}
-
-/* Input Group */
-.input-group {
-    margin-bottom: 20px;
-    text-align: left; /* so label and input are proper */
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #d4a200;
-    font-size: 16px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 14px 16px; /* more left padding so placeholder stays INSIDE nicely */
-    border: 2px solid #ffffff;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-/* Input Focus */
-.input-group input:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #b0710496;
-    box-shadow: 0 0 10px #b0710496;
-}
-
-/* Error Message */
-.error-message {
-    color: #ff4b4b;
-    text-align: center;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-/* Success Message */
-.success-message {
-    color: #00ff99;
-    text-align: center;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-/* Button */
-button {
-    width: 50%;
-    padding: 14px;
-    background: linear-gradient(135deg, #000000, #ffddee);
-    color: #0d0d0d;
-    font-size: 18px;
-    font-weight: 700;
+    padding: 0.85rem 1.5rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #5e72e4, #825ee4);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(194, 190, 0, 0.7);
-}
-
-/* Button Hover */
-button:hover {
-    background: linear-gradient(135deg, #ffffff, #000000);
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgb(164, 0, 0);
-}
+    margin-bottom: 1.5rem;
+  }
+  
+  button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #4a5bd4, #7048d4);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(94, 114, 228, 0.3);
+  }
+  
+  button:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  
+  .links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .links a:hover {
+    color: #5e72e4;
+    text-decoration: underline;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 0.75rem;
+  }
+  
+  .loader {
+    margin: 2rem auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #5e72e4;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  @media (max-width: 480px) {
+    .login-form {
+      padding: 2rem 1.5rem;
+    }
+    
+    .links {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+  }

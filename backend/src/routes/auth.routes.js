@@ -18,6 +18,7 @@ router.route("/logout")
         return res.status(200).json({ message: "Logged out successfully" });
     }); 
 
-// router.get("/getProfile", getUserProfile);
+router.get("/getProfile", getUserProfile);
 router.get("/healthcheck", healthcheck);
+router.post("/updateUser",)
 export default router
