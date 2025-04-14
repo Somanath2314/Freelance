@@ -18,13 +18,13 @@ function Register() {
 
   const getUserProfile = async () => {
     try {
+      console.log("Fetching user profile...");
       const response = await axios.get(`${baseurl}/getProfile`, {
         withCredentials: true,
         headers: {
           "Content-Type": 'application/json'
         },
-      });
-
+      }); 
       console.log("Profile data:", response.data);
       const userRole = response.data.data.user.role;
 
@@ -54,13 +54,17 @@ function Register() {
     }
 
     const userData = {
-      name: username,
+      username: username,
       email,
-      Phone_no: phone,
+      phoneNum: phone,
       password,
       role
     };
-
+    console.log("User data:", userData);
+    console.log("before register");
+    console.log("baseurl:", baseurl);
+    console.log("userData:", userData);
+    
     try {
       const response = await axios.post(
         `${baseurl}/register`,

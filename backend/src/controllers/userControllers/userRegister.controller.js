@@ -80,7 +80,13 @@ const registerUser = async (req, res) => {
         
         // Return success response
         console.log("Registration successful, sending response");
-        
+        // In registerUser function, after generating the accessToken
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // true in production
+            sameSite: "strict",
+            maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
+        });
         return res.status(201).json({
             message: "User registered successfully",
             user: {
