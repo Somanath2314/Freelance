@@ -4,12 +4,12 @@ const userSchema=new Schema({
     username:
     {
          type:String,
-         required:true,
-         unique:true,
-         lowercase:true,
-         trim:true,
-         index:true
-
+         required:true,   
+    },
+    role: {
+        type: String,
+        enum: ["user", "admin","employee"],
+        default: "user"
     },
 
     email:
@@ -19,19 +19,15 @@ const userSchema=new Schema({
         unique:true,
         lowecase:true,
         trim:true
-    },
-    password:
-    {
+    }, 
+    phoneNum:{
         type:String,
-        required:true,
-        trim:true
+        required:[true,"phone number is required"]
     },
-    
-    refreshToken:
-    {
-        type:String
-    }
-
+    password:{
+        type:String,
+        required:[true,"password is required"]//message to frontend
+    }, 
 },{timestamps:true})
 
 export const User=mongoose.model("User",userSchema)//create the document by this name

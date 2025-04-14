@@ -15,8 +15,9 @@ app.use(express.urlencoded({extended:true,limit:"1000kb"}))
 app.use(express.static("public"))
 
 import healthcheckRouter from "./routes/healthcheck.routes.js"
+import employeeroutes from "./routes/employee.routes.js"
 
 app.use("/api/v1/healthcheck",healthcheckRouter)
-
+app.use("/api/v1/employee",employeeroutes)
 
 export {app}
