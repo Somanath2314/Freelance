@@ -13,7 +13,7 @@ router.get("/getAllOrders", getAllOrders);
 router.get("/getOrderByTrackingNumber/:trackingNumber", getOrderByTrackingNumber);
 
 // Get orders by user
-router.get("/ordersByUser/:user", ordersByUser);
+router.get("/ordersByUser", ordersByUser);
 
 // Get order count
 router.get("/getOrderCount", getOrderCount);

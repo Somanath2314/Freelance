@@ -15,9 +15,8 @@ function Header() {
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#track">Track</a></li>
-          <li><Link to="/admin-login">AdminLogin</Link></li> {/* ✅ Real navigation */}
-          <li><Link to="/customer-login">CustomerLogin</Link></li>
+          <li><a href="#track">Track</a></li> 
+          <li><Link to="/customer-login">Login</Link></li>
         </ul>
       </nav>
     </header>

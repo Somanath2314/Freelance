@@ -63,7 +63,14 @@ const ShipNow = () => {
 
         try {
             // Send the data to the backend using axios
-            const response = await axios.post('http://localhost:8080/api/v1/order/createOrder', orderData);
+            const response = await axios.post('http://localhost:8080/api/v1/order/createOrder', orderData,
+                {
+                    withCredentials: true,
+                    headers: {
+                      "Content-Type": 'application/json'
+                    },
+                  }
+            );
             console.log('Order Created:', response.data);
             setSubmitStatus('success');
             

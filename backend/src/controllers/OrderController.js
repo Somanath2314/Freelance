@@ -57,8 +57,25 @@ export const createOrder = async (req, res) => {
 export const ordersByUser = async (req, res) => {
     try {
         // needs id here also
-        const { user } = req.params;
-        const orders = await Order.find({ user });
+        console.log("before create");
+        const token = req.cookies.accessToken;
+        console.log(token);
+        
+        if (!token) {
+            console.log("no token"); 
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        console.log("after token");
+        // verify token 
+        console.log("veryfiying token");
+        
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const user = decoded._id;
+
+        console.log("user id: ", user);
+        const orders = await Order.find({ user }).sort({ date: -1 });
+
+        console.log("orders: ", orders); 
         res.status(200).json(orders);
     }catch(error){
         res.status(500).json({ message: error.message });
