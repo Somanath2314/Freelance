@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { createOrder, ordersByUser, getAllOrders, getOrderByTrackingNumber, getOrderCount, ordersToBeShippedToday, updateStatus } from "../controllers/OrderController.js";
-
+import { userbyId } from "../controllers/Admin.controller.js";
 const router = Router();
 
 // Create a new order
 router.post("/createOrder", createOrder);
-
+router.get("/user/:id", userbyId);
 // Get all orders
 router.get("/getAllOrders", getAllOrders);
 

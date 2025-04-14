@@ -1,108 +1,327 @@
 /* ============================
-    Customer Details - Clean Neon Style
+    Customer Details - Enhanced Neon Style
 ============================ */
+
+/* Base Styling and Animations */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+:root {
+  --primary-neon: #00eaff;
+  --primary-glow: #00eaff55;
+  --secondary-neon: #0077ff;
+  --background-dark: #0a0a12;
+  --card-bg: #12121a;
+  --row-bg-1: #16161e;
+  --row-bg-2: #1a1a24;
+  --text-light: #e0f8ff;
+  --status-pending: #ffaa00;
+  --status-transit: #00aaff;
+  --status-delivered: #00ff88;
+  --status-canceled: #ff3366;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--primary-glow); }
+  50% { box-shadow: 0 0 15px var(--primary-glow); }
+  100% { box-shadow: 0 0 5px var(--primary-glow); }
+}
+
+@keyframes pulseCancel {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); box-shadow: 0 0 8px var(--status-canceled); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes spinGlow {
+  0% { transform: rotate(0deg); box-shadow: 0 0 10px var(--primary-neon); }
+  100% { transform: rotate(360deg); box-shadow: 0 0 20px var(--primary-neon); }
+}
+
+@keyframes updateFlash {
+  0% { background-color: var(--primary-neon); opacity: 0.2; }
+  50% { background-color: var(--primary-neon); opacity: 0.3; }
+  100% { background-color: transparent; opacity: 1; }
+}
 
 /* Main Container */
 .customer-details-container {
   padding: 40px;
-  background: #0d0d0d;
+  background: var(--background-dark);
+  background-image: 
+    radial-gradient(circle at 10% 20%, #ffffff03 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, #ffffff03 0%, transparent 20%);
   min-height: 100vh;
+  color: var(--text-light);
+}
+
+/* Header Section */
+.header-section {
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 /* Title */
 .neon-title {
-  font-size: 36px;
-  color: #00eaff;
-  text-align: center;
-  margin-bottom: 30px;
-  text-shadow: 0 0 8px #00eaffaa;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--primary-neon);
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow);
+  letter-spacing: 2px;
+  animation: pulse 3s infinite ease-in-out;
 }
 
-/* ============================
-         Table Styles
-============================ */
+.neon-subtitle {
+  font-size: 18px;
+  color: #a0e8ff;
+  opacity: 0.8;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
 
+/* Table Container */
+.table-container {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 25px #00eaff22;
+  animation: glow 4s infinite ease-in-out;
+  background: #00eaff05;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.table-container:hover {
+  box-shadow: 0 0 35px #00eaff33;
+}
+
+/* Table Styles */
 .neon-table {
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: #111;
-  border: 2px solid #00eaff55;
-  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 12px #00eaff33;
 }
 
 /* Table Headers */
 .neon-table th {
-  background: linear-gradient(90deg, #00c8ff, #0077ff);
+  background: linear-gradient(90deg, var(--secondary-neon), var(--primary-neon));
   color: #ffffff;
-  padding: 15px;
+  padding: 18px 15px;
   text-transform: uppercase;
   font-size: 16px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-table th::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
 }
 
 /* Table Body */
 .neon-table td {
-  background-color: #121212;
-  color: #d0f7ff;
-  padding: 14px;
-  font-size: 15px;
+  padding: 16px;
+  font-size: 16px;
   text-align: center;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #ffffff08;
+}
+
+/* Rows */
+.neon-table tr td {
+  background-color: var(--row-bg-1);
+}
+
+.neon-table tr:nth-child(even) td {
+  background-color: var(--row-bg-2);
 }
 
 /* Row Hover */
 .neon-table tr:hover td {
   background-color: #00eaff11;
-  transition: background 0.2s ease;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Even Rows */
-.neon-table tr:nth-child(even) td {
-  background-color: #181818;
+/* Fade in animation for rows */
+.fade-in-row {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
 }
 
-/* ============================
-       Select Dropdown
-============================ */
+/* Update animation */
+.update-animation td {
+  animation: updateFlash 1.5s ease-out;
+}
 
+/* Order ID column */
+.order-id {
+  font-family: 'Rajdhani', monospace;
+  letter-spacing: 0.5px;
+  color: #b3e8ff;
+}
+
+/* Customer name column */
+.customer-name {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* Status indicator */
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+
+/* Special animation for Canceled status */
+tr:has(select[value="Canceled"]) .status-indicator {
+  animation: pulseCancel 2s infinite;
+}
+
+/* Status text styling */
+.status-text {
+  font-weight: 500;
+}
+
+/* Select Dropdown */
 .neon-select {
-  padding: 8px;
-  border: 2px solid #00eaff55;
+  padding: 10px 15px;
+  border: 2px solid var(--primary-glow);
   border-radius: 6px;
-  background: #0f0f0f;
-  color: #00eaff;
+  background: rgba(15, 15, 25, 0.8);
+  color: var(--primary-neon);
   font-size: 15px;
-  box-shadow: 0 0 5px #00eaff33;
-  transition: 0.3s;
-}
-
-.neon-select:hover {
-  border-color: #00eaff;
-  box-shadow: 0 0 8px #00eaff77;
-}
-
-/* ============================
-        Buttons
-============================ */
-
-.neon-button {
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #00eaff, #0077ff);
-  color: #0d0d0d;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  box-shadow: 0 0 5px var(--primary-glow);
+  transition: all 0.3s ease;
   cursor: pointer;
-  box-shadow: 0 0 10px #00eaff55;
-  transition: 0.3s ease;
+  min-width: 140px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' fill='none'%3E%3Cpath d='M1 1l5 4 5-4' stroke='%2300eaff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px;
 }
 
-.neon-button:hover {
-  background: linear-gradient(135deg, #0077ff, #00eaff);
-  box-shadow: 0 0 15px #00eaffaa;
-  transform: scale(1.05);
+/* Special styling for Canceled status select */
+.neon-select[value="Canceled"] {
+  border-color: var(--status-canceled);
+  color: var(--status-canceled);
+  box-shadow: 0 0 5px var(--status-canceled);
+}
+
+.neon-select:hover, .neon-select:focus {
+  border-color: var(--primary-neon);
+  box-shadow: 0 0 12px var(--primary-glow);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.neon-select option {
+  background-color: #0a0a15;
+  color: #e0f8ff;
+}
+
+/* Special styling for the "Canceled" option */
+.neon-select option[value="Canceled"] {
+  color: var(--status-canceled);
+  font-weight: 500;
+}
+
+/* Loading animation */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 3px solid transparent;
+  border-top: 3px solid var(--primary-neon);
+  border-radius: 50%;
+  animation: spinGlow 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-container p {
+  color: var(--primary-neon);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+/* Table footer */
+.table-footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  color: #a0e8ff;
+  padding: 0 20px;
+}
+
+.total-orders {
+  background: rgba(0, 234, 255, 0.05);
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--primary-glow);
+  font-size: 16px;
+  animation: glow 3s infinite ease-in-out;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .customer-details-container {
+    padding: 20px;
+  }
+  
+  .neon-title {
+    font-size: 32px;
+  }
+  
+  .neon-table th, .neon-table td {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+  
+  .neon-select {
+    min-width: 110px;
+    padding: 8px;
+  }
 }
