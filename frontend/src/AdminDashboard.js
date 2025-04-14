@@ -73,7 +73,7 @@ const AdminDashboard = () => {
                             <div className="card">
                                 <h2>Update Status</h2>
                                 <p>{pendingStatusCount} customers</p>
-                                <button onClick={() => navigate('/update-status')}>
+                                <button onClick={() => navigate('/CustomerDetailsTable')}>
                                     Go to Update Status
                                 </button>
                             </div>
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
                             <div className="card">
                                 <h2>Employee Management</h2>
                                 <p>Manage employee records</p>
-                                <button onClick={() => navigate('/manage-employees')}>
+                                <button onClick={() => navigate('/employeetable')}>
                                     Go to Manage Employees
                                 </button>
                             </div>
