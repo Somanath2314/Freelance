@@ -27,9 +27,9 @@ function Register() {
       console.log("Profile data:", response.data);
       const userRole = response.data.data.user.role;
       
-      if (userRole === "Headmaster") {
+      if (userRole === "admin") {
         navigate("/hm");
-      } else if (userRole === "Teacher") {
+      } else if (userRole === "teacher") {
         navigate("/teacher");
       }
     } catch (error) {

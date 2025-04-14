@@ -23,8 +23,7 @@ root.render(
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/employeetable" element={<EmployeeTable />} />
       <Route path="/admindashboard" element={<AdminDashboard />} />
-      <Route path="/customerdetails" element={<CustomerDetailsTable />} />
-      <Route path="/employeemanagement" element={<EmployeeManagement />} />
+      <Route path="/customerdetails" element={<CustomerDetailsTable />} /> 
       <Route path="/orders" element={<OrdersTable />} />
       <Route path="/customer-login" element={<Customerlogin />} />
       <Route path="/customer-dashboard" element={<CustomerLanding />} />
