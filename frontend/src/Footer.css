@@ -1,0 +1,13 @@
+.footer {
+    position: fixed; /* Set footer position to fixed */
+    bottom: 0; /* Align footer to the bottom */
+    left: 0; /* Align footer to the left */
+    width: 100%; /* Full width */
+    background-color: #130909;
+    padding: 20px;
+    text-align: center;
+    color: aliceblue;
+}
+
+
+/* Additional styles can be added here if needed */

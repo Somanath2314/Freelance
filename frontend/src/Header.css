@@ -1,0 +1,90 @@
+/* GLOBAL FIX to remove horizontal scroll and fix layout overflow */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;  /* 💣 Removes horizontal scrollbar */
+}
+
+/* Header container */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 60px;
+    background: linear-gradient(90deg, #111111, #1e1e1e);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    font-family: system-ui, sans-serif;
+}
+
+/* Logo container */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo image */
+.logo img {
+    height: 45px;         /* Perfect height for navbar */
+    width: auto;          /* Keeps aspect ratio */
+    object-fit: contain;  /* Prevents stretching */
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;  /* 👈 Prevents overflow, keeps admin in line */
+}
+
+.nav-links a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #f6a600;
+    transition: 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.nav-links a:hover {
+    color: #f6a600;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    transform: scale(1.05);
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
