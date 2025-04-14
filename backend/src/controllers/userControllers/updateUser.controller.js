@@ -1,5 +1,5 @@
-import User from "../../models/user.models.js";
-import bcrypt from "bcryptjs";
+import {User} from "../../models/user.models.js"; 
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const updateUser = async (req, res) => {
@@ -47,3 +47,4 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
