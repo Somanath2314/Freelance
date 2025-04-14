@@ -2,7 +2,7 @@ import { Router } from "express";
 import { loginUser } from "../controllers/userControllers/userLogin.controller.js";
 import { registerUser } from "../controllers/userControllers/userRegister.controller.js"; 
 import {healthcheck} from "../controllers/healthcheck.controller.js"
-
+import { getUserProfile } from "../controllers/userControllers/getUserProfile.controller.js";
 
 const router=Router()
 

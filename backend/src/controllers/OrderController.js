@@ -1,6 +1,7 @@
 
 import { Order } from "../models/order.models.js";
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 
 async function generateShortId() {
     const uuid = uuidv4(); // generates UUID like '8c3a7604-f03c-4d08-96b9-bc6c5ff5aecc'
@@ -15,32 +16,39 @@ async function generateShortId() {
 
 
 export const createOrder = async (req, res) => {
+    console.log("create order"); 
+    // user id is required
     try {
-        console.log("Before creating order");
-        console.log("req.body", req.body);
-        console.log("req.cookies", req.cookies);
-        const user = "abcd"; // get from middleware or cookies
-        const { weight, category, modeOfTransport, status = "Pending" } = req.body;
-
-        if (!user || !weight || !category || !modeOfTransport) {
-            console.log("Missing fields");
-            return res.status(400).json({ message: "All fields are required" });
+        console.log("before create");
+        const token = req.cookies.accessToken;
+        console.log(token);
+        
+        if (!token) {
+            console.log("no token"); 
+            return res.status(401).json({ message: "Unauthorized" });
         }
-
-        const trackingNumber = await generateShortId();
-
-        const order = await Order.create({
-            user,
-            trackingNumber,
-            weight,
-            category,
-            modeOfTransport,
-            status,
-        });
-
+        console.log("after token");
+        // verify token 
+        console.log("veryfiying token");
+        
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const user = decoded._id;
+        console.log("user id: ", user);
+        const {weight, category, modeOfTransport, status="pending" } = req.body;
+        // generate trackingNumber using some uuid?
+        const trackingNumber = await generateShortId()
+        console.log("tracking number: ", trackingNumber);
+        console.log(user, weight, category, modeOfTransport, status);
+         
+        console.log("before create order");
+        
+        const order = await Order.create({ user, trackingNumber, weight, category, modeOfTransport, status });
+        console.log("order created successfully");
+        console.log(order);
+        
         res.status(201).json(order);
-    } catch (error) {
-        console.error("Error creating order:", error);
+    }
+    catch(error){
         res.status(500).json({ message: error.message });
     }
 };

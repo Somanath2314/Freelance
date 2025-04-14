@@ -3,10 +3,13 @@ import cors from "cors"
 const app=express()
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "http://localhost:3000",  // Your frontend URL
     credentials: true
 }))
+import cookieParser from "cookie-parser";
 
+// Add this before your routes
+app.use(cookieParser());
 //common middlewares
 app.use(express.json({limit:"1000kb"}))
 app.use(express.urlencoded({extended:true,limit:"1000kb"}))
