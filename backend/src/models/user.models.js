@@ -12,8 +12,7 @@ const userSchema=new Schema({
         type: String,
         enum: ["user", "admin","employee"],
         default: "user"
-    },
-
+    }, 
     email:
     {
         type:String,

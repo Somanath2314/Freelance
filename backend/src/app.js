@@ -15,9 +15,11 @@ app.use(express.static("public"))
 import healthcheckRouter from "./routes/healthcheck.routes.js"
 import authRoutes from "./routes/auth.routes.js";
 import employeeRoutes from "./routes/employee.routes.js"; 
+import orderRoutes from "./routes/order.routes.js";
 
 app.use("/api/v1/healthcheck",healthcheckRouter)
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/employee",employeeRoutes) 
+app.use("/api/v1/order", orderRoutes)
 
 export {app}

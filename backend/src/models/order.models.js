@@ -13,8 +13,14 @@ const orderSchema = new Schema({
         unique: true
     },
     weight: {
-        type: Number,
+        type: String,
         required: true
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ["Cloth", "Electronics", "Books", "Furniture", "Books", "Vehicle"],
+        default: "Cloth"
     },
     modeOfTransport: {
         type: String,
@@ -28,6 +34,6 @@ const orderSchema = new Schema({
         enum: ["Pending", "In Transit", "Delivered", "Cancelled"],
         default: "Pending"
     }, 
-})
+}, {timestamps: true})
 
 export const Order = mongoose.model("Order", orderSchema);
