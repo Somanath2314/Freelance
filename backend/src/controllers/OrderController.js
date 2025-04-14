@@ -12,25 +12,39 @@ async function generateShortId() {
 
     return base64Id;
 }
+
+
 export const createOrder = async (req, res) => {
-    // user id is required
     try {
-        console.log("before create");
-        const { user, weight, category, modeOfTransport, status="pending" } = req.body;
-        // generate trackingNumber using some uuid?
-        const trackingNumber = await generateShortId()
-       if(!user || !weight || !category || !modeOfTransport){
-            console.log("missing fields");{
-           
+        console.log("Before creating order");
+        console.log("req.body", req.body);
+        console.log("req.cookies", req.cookies);
+        const user = "abcd"; // get from middleware or cookies
+        const { weight, category, modeOfTransport, status = "Pending" } = req.body;
+
+        if (!user || !weight || !category || !modeOfTransport) {
+            console.log("Missing fields");
+            return res.status(400).json({ message: "All fields are required" });
         }
-        const order = await Order.create({ user, trackingNumber, weight, category, modeOfTransport, status });
-       
+
+        const trackingNumber = await generateShortId();
+
+        const order = await Order.create({
+            user,
+            trackingNumber,
+            weight,
+            category,
+            modeOfTransport,
+            status,
+        });
+
         res.status(201).json(order);
-    }
-    }catch(error){
+    } catch (error) {
+        console.error("Error creating order:", error);
         res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 export const ordersByUser = async (req, res) => {
     try {
@@ -46,6 +60,7 @@ export const ordersByUser = async (req, res) => {
 export const getOrderByTrackingNumber = async (req, res) => {
     try {
         const { trackingNumber } = req.params;
+        console.log("trackingNumber", trackingNumber);
         const order = await Order.findOne({ trackingNumber });
         res.status(200).json(order);
     }catch(error){
@@ -78,7 +93,7 @@ export const ordersToBeShippedToday = async (req, res) => {
         console.log("before find");
         const orders = await Order.find({ status: "Pending", createdAt: { $gte: new Date(new Date().setDate(new Date().getDate() - 1)) } });
         console.log("after find");
-        res.status(200).json(orders);
+        res.status(200).json(orders.length);
     }catch(error){
         res.status(500).json({ message: error.message });
     }
