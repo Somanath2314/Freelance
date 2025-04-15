@@ -139,7 +139,7 @@ const Customerlogin = () => {
         className={`login-form ${message.type} ${isLoading ? 'loading' : ''}`} 
         onSubmit={handleLogin}
       >
-        <h2>Customer Login</h2>
+        <h2>Login</h2>
 
         {message.text && (
           <p className={`message ${message.type}`}>{message.text}</p>
@@ -180,7 +180,7 @@ const Customerlogin = () => {
 
         <div className="links">
           <a href="/register">Create an account</a>
-          <a href="/forgot-password">Forgot password?</a>
+          <a href="#">Forgot password?</a>
         </div>
       </form>
     </div>

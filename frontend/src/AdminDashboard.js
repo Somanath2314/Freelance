@@ -60,7 +60,7 @@ const AdminDashboard = () => {
           text: "Failed to fetch user profile"
         });
         // Redirect to login if not authenticated
-        navigate("/customer-login");
+        navigate("/login");
       }
     };
 
@@ -330,8 +330,7 @@ const AdminDashboard = () => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 1.0, type: "spring", stiffness: 200 }}
-                >
-                  {pendingStatusCount} pending updates
+                > 
                 </motion.p>
                 <motion.button
                   aria-label="Navigate to Update Customer Status"

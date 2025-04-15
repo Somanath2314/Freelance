@@ -53,6 +53,25 @@ function Register() {
       return;
     }
 
+    // some basic validation for the phone number, email
+    const phoneRegex = /^[0-9]{10}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!phoneRegex.test(phone)) {
+      setMessage({ type: "error", text: "Invalid phone number format" });
+      setLoading(false);
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setMessage({ type: "error", text: "Invalid email format" });
+      setLoading(false);
+      return;
+    }
+    if (password.length < 6) {
+      setMessage({ type: "error", text: "Password must be at least 6 characters long" });
+      setLoading(false);
+      return;
+    }
+
     const userData = {
       username: username,
       email,
