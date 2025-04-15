@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import EmployeeTable from './EmployeeTable';
 import backgroundVideo from './airr2.mp4';
 import './AdminDashboard.css';
+// Import settings icon
+import { FaCog, FaSignOutAlt, FaUser } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [activeView, setActiveView] = useState('dashboard');
@@ -14,9 +16,13 @@ const AdminDashboard = () => {
   const [pendingStatusCount, setPendingStatusCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+  const settingsRef = useRef(null);
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const baseurl = 'http://localhost:8080/api/v1/auth';
 
   // Load custom font
   useEffect(() => {
@@ -26,6 +32,53 @@ const AdminDashboard = () => {
     link.rel = 'stylesheet';
     document.head.appendChild(link);
     return () => document.head.removeChild(link);
+  }, []);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        console.log("Fetching user profile...");
+        const response = await axios.get(`${baseurl}/getProfile`, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": 'application/json'
+          },
+        }); 
+        console.log("Profile data:", response.data);
+        const userRole = response.data.data.user.role;
+
+        if (userRole === "admin") {
+          // Already on admin dashboard, no need to navigate
+        } else if (userRole === "user") {
+          navigate("/customer-dashboard");
+        }
+      } catch (error) { 
+        console.error("Error fetching user profile:", error);
+        setMessage({
+          type: "error",
+          text: "Failed to fetch user profile"
+        });
+        // Redirect to login if not authenticated
+        navigate("/customer-login");
+      }
+    };
+
+    getUserProfile();
+  }, [navigate]);
+
+  // Close settings dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setShowSettings(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   // Attempt to play video automatically
@@ -100,6 +153,28 @@ const AdminDashboard = () => {
     setVideoLoaded(true);
   };
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:8080/api/v1/auth/logout', {
+        withCredentials: true
+      });
+      navigate('/');
+    } catch (error) {
+      console.error("Logout error:", error);
+      setMessage({
+        type: "error",
+        text: "Failed to logout"
+      });
+    }
+  };
+
+  // Handle navigation to edit profile
+  const handleEditProfile = () => {
+    navigate('/editProfile');
+    setShowSettings(false);
+  };
+
   // Card animation variants with Framer Motion
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -114,12 +189,48 @@ const AdminDashboard = () => {
     })
   };
 
+  // Settings dropdown animation
+  const dropdownVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
+    exit: { opacity: 0, y: -10, transition: { duration: 0.2 } }
+  };
+
   return (
     <div className="admin-dashboard">
-      {/* Fixed Header */}
+      {/* Fixed Header with Settings */}
       <header className="dashboard-header">
-        <h2>Admin Portal</h2>
-        {/* Additional nav items can be added here */}
+        <div className="header-container">
+          <h2>Admin Portal</h2>
+          <div className="settings-container" ref={settingsRef}>
+            <button 
+              className="settings-button"
+              onClick={() => setShowSettings(!showSettings)} 
+              aria-label="Settings"
+            >
+              <FaCog className="settings-icon" />
+            </button>
+            
+            <AnimatePresence>
+              {showSettings && (
+                <motion.div 
+                  className="settings-dropdown"
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={dropdownVariants}
+                >
+                  <button onClick={handleEditProfile}>
+                    <FaUser /> Edit Profile
+                  </button>
+                  <button onClick={handleLogout}>
+                    <FaSignOutAlt /> Logout
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
       </header>
 
       <div className="video-container">
@@ -159,6 +270,21 @@ const AdminDashboard = () => {
                   ease: "linear"
                 }}
               />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Error Message Display */}
+        <AnimatePresence>
+          {message.text && (
+            <motion.div 
+              className={`message-toast ${message.type}`}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {message.text}
             </motion.div>
           )}
         </AnimatePresence>

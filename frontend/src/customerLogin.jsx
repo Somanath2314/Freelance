@@ -6,7 +6,7 @@ import cuslog from './cuslog.mp4';
 
 const Customerlogin = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ type: "", text: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -51,8 +51,8 @@ const Customerlogin = () => {
     e.preventDefault();
     
     // Form validation
-    if (!username.trim() || !password.trim()) {
-      setMessage({ type: "error", text: "Username and password are required" });
+    if (!email.trim() || !password.trim()) {
+      setMessage({ type: "error", text: "email and password are required" });
       return;
     }
 
@@ -61,7 +61,7 @@ const Customerlogin = () => {
 
     try {
       const response = await axios.post(`${baseurl}/login`, 
-        { username, password },
+        { email, password },
         {
           withCredentials: true,
           headers: {
@@ -72,15 +72,9 @@ const Customerlogin = () => {
 
       setIsLoading(false);
       
-      if (response.data && response.data.success) {
-        setMessage({ type: "success", text: "Login successful!" });
-        setIsAuthenticated(true);
-        
-        // Fetch user profile to determine role
-        getUserProfile();
-      } else {
-        setMessage({ type: "error", text: response.data.message || "Login failed" });
-      }
+      getUserProfile(); // Fetch user profile after successful login
+      setIsAuthenticated(true);
+      setMessage({ type: "success", text: "Login successful!" });
     } catch (error) {
       setIsLoading(false);
       console.error("Login error:", error);
@@ -100,12 +94,14 @@ const Customerlogin = () => {
         },
       }); 
       console.log("Profile data:", response.data);
-      
-      if (response.data && response.data.data && response.data.data.user) {
-        const userRole = response.data.data.user.role;
-        redirectBasedOnRole(userRole);
+      const userRole = response.data.data.user.role;
+
+      if (userRole === "admin") {
+        navigate("/admindashboard");
+      } else if (userRole === "user") {
+        navigate("/customer-dashboard");
       }
-    } catch (error) {
+    } catch (error) { 
       console.error("Error fetching user profile:", error);
       setMessage({
         type: "error",
@@ -150,13 +146,13 @@ const Customerlogin = () => {
         )}
 
         <div className="input-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">email</label>
           <input
-            id="username"
+            id="email"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter Username"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+            placeholder="Enter email"
             disabled={isLoading}
           />
         </div>

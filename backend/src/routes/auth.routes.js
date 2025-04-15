@@ -13,12 +13,11 @@ router.route("/login")
     .post(loginUser);
 
 router.route("/logout")
-    .post((req, res) => {
+    .get((req, res) => {
         res.clearCookie("accessToken");
         return res.status(200).json({ message: "Logged out successfully" });
     }); 
 
-router.get("/getProfile", getUserProfile);
-router.get("/healthcheck", healthcheck);
+router.get("/getProfile", getUserProfile); 
 router.post("/updateUser", updateUser);
 export default router

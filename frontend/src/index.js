@@ -13,6 +13,7 @@ import Customerlogin from './customerLogin';
 import CustomerLanding from './zcustomerlanding';
 import ShipNow from './zshipnow';
 import Register from './Register/Register';
+import EditProfile from './EditProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +27,8 @@ root.render(
       <Route path="/customerdetails" element={<CustomerDetailsTable />} /> 
       <Route path="/orders" element={<OrdersTable />} />
       <Route path="/customer-login" element={<Customerlogin />} />
+      <Route path="/login" element={<Customerlogin />} />
+      <Route path="/editProfile" element={<EditProfile />} />
       <Route path="/customer-dashboard" element={<CustomerLanding />} />
       <Route path="/shipnow" element={<ShipNow />} />
 

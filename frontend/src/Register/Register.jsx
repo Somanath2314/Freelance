@@ -33,7 +33,7 @@ function Register() {
       } else if (userRole === "user") {
         navigate("/customer-dashboard");
       }
-    } catch (error) {
+    } catch (error) { 
       console.error("Error fetching user profile:", error);
       setMessage({
         type: "error",
