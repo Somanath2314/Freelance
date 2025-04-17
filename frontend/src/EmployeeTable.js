@@ -7,6 +7,7 @@ const EmployeeTable = ({ showSummary = true }) => {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({ name: '', position: '', email: '' });
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
+  const [catCount, setCatCount] = useState(0);
 
   // Position options from the schema
   const positionOptions = [
@@ -32,6 +33,17 @@ const EmployeeTable = ({ showSummary = true }) => {
     "Training Supervisor"
   ];
 
+  const fetchCatCount = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/v1/employee/employeecategory');
+      setCatCount(res.data.uniqueRoles.length);
+      console.log("Cat count:", res.data.uniqueRoles.length); 
+    } catch (err) {
+      console.error("Error fetching cat count", err);
+      showToast("Failed to load cat count", "error");
+    }
+  };
+
   // Fetch all employees on mount
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -43,8 +55,11 @@ const EmployeeTable = ({ showSummary = true }) => {
         showToast("Failed to load employees", "error");
       }
     };
+
+    
     fetchEmployees();
-  }, []);
+    fetchCatCount();
+  }, [catCount]);
 
   // Toast notification handler
   const showToast = (message, type = 'success') => {
@@ -77,9 +92,11 @@ const EmployeeTable = ({ showSummary = true }) => {
       const employeeWithId = { ...formData, displayId: nameId };
       
       const res = await axios.post('http://localhost:8080/api/v1/employee', employeeWithId);
+      fetchCatCount();
       setEmployees([...employees, res.data]);
       setFormData({ name: '', position: '', email: '' });
       showToast("Employee added successfully");
+      
     } catch (err) {
       console.error("Error adding employee", err);
       showToast("Failed to add employee", "error");
@@ -102,6 +119,7 @@ const EmployeeTable = ({ showSummary = true }) => {
       setEmployees(employees.map(emp => emp._id === editingId ? res.data : emp));
       setEditingId(null);
       setFormData({ name: '', position: '', email: '' });
+      fetchCatCount();
       showToast("Employee updated successfully");
     } catch (err) {
       console.error("Error updating employee", err);
@@ -112,6 +130,7 @@ const EmployeeTable = ({ showSummary = true }) => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/api/v1/employee/${id}`);
+      fetchCatCount();
       setEmployees(employees.filter(emp => emp._id !== id));
       showToast("Employee deleted successfully");
     } catch (err) {
@@ -158,7 +177,8 @@ const EmployeeTable = ({ showSummary = true }) => {
             </div>
             <div className="stat-card">
               <div className="stat-value">
-                {new Set(employees.map(e => e.department || 'N/A')).size}
+                
+                {catCount}
               </div>
               <div className="stat-label">Departments</div>
             </div>
