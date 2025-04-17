@@ -1,8 +1,14 @@
 import React from "react";
 import './MainContent.css';
 import backgroundVideo from './airr.mp4'; // Import your video
+import { useNavigate } from "react-router-dom";
+
 
 function MainContent() {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login"); // Navigate to the login page
+  };
   return (
     <main className="main-content">
       <div className="image-container">
@@ -21,8 +27,8 @@ function MainContent() {
           <h1>Welcome to DHL</h1>
           <p>Delivering excellence worldwide.</p>
           <div className="button-tile">
-            <button className="cta-button">Get Quote</button>
-            <button className="cta-button">Request Business Account</button>
+            <button onClick={handleLogin} className="cta-button">Get Quote</button>
+            <button onClick={handleLogin} className="cta-button">Request Business Account</button>
             <button className="cta-button">Learn More</button>
           </div>
         </div>

@@ -162,7 +162,7 @@ const EmployeeTable = ({ showSummary = true }) => {
               </div>
               <div className="stat-label">Departments</div>
             </div>
-            <div className="stat-card">
+            {/* <div className="stat-card">
               <div className="stat-value">
                 {
                   new Date(
@@ -173,7 +173,7 @@ const EmployeeTable = ({ showSummary = true }) => {
                 }
               </div>
               <div className="stat-label">Newest Hire</div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
