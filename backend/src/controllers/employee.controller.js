@@ -97,14 +97,21 @@ const getManager = async (req, res) => {
 
 const employeecategory = async (req, res) => {
     try {
-        const employees = await Employee.find({});
-        console.log(employees);
+        // Fetch unique positions, ensuring that there are no null or empty values
+        const uniqueRoles = await Employee.distinct("position", { position: { $ne: null, $ne: "" } });
+
+        // If unique roles are found, return them
         
-        res.json({employees});
+        if (uniqueRoles.length === 0) {
+            return res.json({ uniqueRoles: [] });
+        }
+
+        res.json({ uniqueRoles });
     } catch (error) {
+        console.error("Error fetching unique roles:", error);
         res.status(500).json({ message: error.message });
     }
-}
+};
 
 
 export {
