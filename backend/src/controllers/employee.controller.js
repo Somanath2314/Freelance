@@ -95,10 +95,23 @@ const getManager = async (req, res) => {
     }
 };
 
+const employeecategory = async (req, res) => {
+    try {
+        const employees = await Employee.find({});
+        console.log(employees);
+        
+        res.json({employees});
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
 export {
     getAllEmployees,
     addEmployee,
     editEmployee,
     deleteEmployee,
     getManager,
+    employeecategory
 };
